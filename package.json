@@ -22,5 +22,11 @@
         "path": "./themes/Two Firewatch-color-theme-light.json"
       }
     ]
+  },
+  "scripts": {
+    "build": "ts-node ./src/build.ts"
+  },
+  "devDependencies": {
+    "ts-node": "^10.9.1"
   }
 }

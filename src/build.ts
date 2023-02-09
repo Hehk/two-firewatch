@@ -1,6 +1,29 @@
-const { writeFileSync } = require("fs");
+import { writeFileSync } from "fs";
+import { join } from "path";
 
-type Colors = Record<string, string>;
+type Colors = {
+  uno_1: string;
+  uno_2: string;
+  uno_3: string;
+  uno_4: string;
+
+  duo_1: string;
+  duo_2: string;
+  duo_3: string;
+
+  syntax_color_renamed: string;
+  syntax_color_added: string;
+  syntax_color_modified: string;
+  syntax_color_removed: string;
+
+  syntax_fg: string;
+  syntax_bg: string;
+  syntax_accent: string;
+  syntax_gutter: string;
+  syntax_selection: string;
+  syntax_fold_bg: string;
+  syntax_cursor_line: string;
+};
 
 const lightColors: Colors = {
   uno_1: "#2d2006",
@@ -78,6 +101,7 @@ type Theme = {
     scope: string[];
     settings: {
       foreground?: string;
+      background?: string;
       fontStyle?: string;
     };
   }[];
@@ -86,15 +110,20 @@ type Theme = {
 const makeTheme = (c: Colors): Theme => {
   const foreground = c.syntax_fg;
 
-  return {
+  const theme: Theme = {
     name: "Two Firewatch",
     colors: {
+      // Reference doc https://code.visualstudio.com/api/references/theme-color
       "editor.background": c.syntax_bg,
       "editor.foreground": foreground,
+      "selection.background": c.syntax_selection,
+      "editor.selectionHighlightBorder": `1px solid blue`,
+
       "activityBarBadge.background": c.syntax_bg,
       "sideBarTitle.foreground": c.syntax_fg,
       "sideBar.background": c.syntax_bg,
       "sideBar.foreground": c.syntax_fg,
+      "sideBar.border": c.uno_4,
       "sideBarSectionHeader.background": c.syntax_bg,
       "sideBarSectionHeader.foreground": c.syntax_fg,
       "editorGroupHeader.tabsBackground": c.syntax_bg,
@@ -120,7 +149,10 @@ const makeTheme = (c: Colors): Theme => {
       "editorRuler.foreground": c.syntax_gutter,
       "editorCodeLens.foreground": c.syntax_gutter,
       "editorBracketMatch.background": c.syntax_selection,
-      "editorBracketMatch.border": c.syntax_selection,
+      "gitDecoration.addedResourceForeground": c.syntax_color_added,
+      "gitDecoration.modifiedResourceForeground": c.syntax_color_modified,
+      "gitDecoration.deletedResourceForeground": c.syntax_color_removed,
+      "gitDecoration.untrackedResourceForeground": c.syntax_color_added,
     },
     tokenColors: [
       {
@@ -178,7 +210,6 @@ const makeTheme = (c: Colors): Theme => {
       {
         name: "Operator, Misc",
         scope: [
-          "keyword.control",
           "constant.other.color",
           "punctuation",
           "meta.tag",
@@ -383,14 +414,47 @@ const makeTheme = (c: Colors): Theme => {
       },
     ],
   };
+
+  // Adding typescript specific styling
+  theme.tokenColors = theme.tokenColors.concat([
+    {
+      name: "Storage, Type",
+      scope: [
+        "storage.type.tsx",
+        "meta.var.expr.tsx",
+        "keyword.control",
+        "keyword.control.import.tsx",
+        "keyword.control.from.tsx",
+        "storage.type.type.tsx",
+        "meta.type.declaration.tsx",
+        "meta.import.tsx",
+      ],
+      settings: {
+        foreground: c.uno_3,
+      },
+    },
+
+    // I want Debugger to be a different color than the rest of the keywords
+    {
+      name: "Debugger",
+      scope: ["keyword.other.debugger"],
+      settings: {
+        foreground: c.syntax_accent,
+        fontStyle: "bold",
+      },
+    },
+  ]);
+
+  return theme;
 };
 
+const themesDir = join(__dirname, "..", "themes");
 // write theme to json file
 writeFileSync(
-  "themes/Two Firewatch-color-theme-dark.json",
+  join(themesDir, "Two Firewatch-color-theme-dark.json"),
   JSON.stringify(makeTheme(darkColors), null, 2)
 );
 writeFileSync(
-  "themes/Two Firewatch-color-theme-light.json",
+  join(themesDir, "Two Firewatch-color-theme-light.json"),
   JSON.stringify(makeTheme(lightColors), null, 2)
 );

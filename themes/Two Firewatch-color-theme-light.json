@@ -3,10 +3,13 @@
   "colors": {
     "editor.background": "#FAF8F5",
     "editor.foreground": "#896724",
+    "selection.background": "#E5DDCB",
+    "editor.selectionHighlightBorder": "1px solid blue",
     "activityBarBadge.background": "#FAF8F5",
     "sideBarTitle.foreground": "#896724",
     "sideBar.background": "#FAF8F5",
     "sideBar.foreground": "#896724",
+    "sideBar.border": "#B6ad9a",
     "sideBarSectionHeader.background": "#FAF8F5",
     "sideBarSectionHeader.foreground": "#896724",
     "editorGroupHeader.tabsBackground": "#FAF8F5",
@@ -32,7 +35,10 @@
     "editorRuler.foreground": "#EAE1D2",
     "editorCodeLens.foreground": "#EAE1D2",
     "editorBracketMatch.background": "#E5DDCB",
-    "editorBracketMatch.border": "#E5DDCB"
+    "gitDecoration.addedResourceForeground": "#43d08a",
+    "gitDecoration.modifiedResourceForeground": "#e0c285",
+    "gitDecoration.deletedResourceForeground": "#e05252",
+    "gitDecoration.untrackedResourceForeground": "#43d08a"
   },
   "tokenColors": [
     {
@@ -104,7 +110,6 @@
     {
       "name": "Operator, Misc",
       "scope": [
-        "keyword.control",
         "constant.other.color",
         "punctuation",
         "meta.tag",
@@ -325,6 +330,32 @@
       "settings": {
         "fontStyle": "italic",
         "foreground": "#065289"
+      }
+    },
+    {
+      "name": "Storage, Type",
+      "scope": [
+        "storage.type.tsx",
+        "meta.var.expr.tsx",
+        "keyword.control",
+        "keyword.control.import.tsx",
+        "keyword.control.from.tsx",
+        "storage.type.type.tsx",
+        "meta.type.declaration.tsx",
+        "meta.import.tsx"
+      ],
+      "settings": {
+        "foreground": "#B29762"
+      }
+    },
+    {
+      "name": "Debugger",
+      "scope": [
+        "keyword.other.debugger"
+      ],
+      "settings": {
+        "foreground": "#447EBB",
+        "fontStyle": "bold"
       }
     }
   ]
