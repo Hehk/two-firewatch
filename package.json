@@ -1,0 +1,26 @@
+{
+  "name": "two-firewatch",
+  "displayName": "two-firewatch",
+  "description": "duotone theme with firewatch colorscheme",
+  "version": "0.0.1",
+  "engines": {
+    "vscode": "^1.75.0"
+  },
+  "categories": [
+    "Themes"
+  ],
+  "contributes": {
+    "themes": [
+      {
+        "label": "Two Firewatch",
+        "uiTheme": "vs-dark",
+        "path": "./themes/Two Firewatch-color-theme-dark.json"
+      },
+      {
+        "label": "Two Firewatch",
+        "uiTheme": "vs-dark",
+        "path": "./themes/Two Firewatch-color-theme-light.json"
+      }
+    ]
+  }
+}
