@@ -2,51 +2,53 @@ import { writeFileSync } from "fs";
 import { join } from "path";
 
 type Colors = {
-  uno_1: string;
-  uno_2: string;
-  uno_3: string;
-  uno_4: string;
+  uno1: string;
+  uno2: string;
+  uno3: string;
+  uno4: string;
 
-  duo_1: string;
-  duo_2: string;
-  duo_3: string;
+  duo1: string;
+  duo2: string;
+  duo3: string;
 
-  syntax_color_renamed: string;
-  syntax_color_added: string;
-  syntax_color_modified: string;
-  syntax_color_removed: string;
+  syntaxColorRenamed: string;
+  syntaxColorAdded: string;
+  syntaxColorModified: string;
+  syntaxColorRemoved: string;
 
-  syntax_fg: string;
-  syntax_bg: string;
-  syntax_accent: string;
-  syntax_gutter: string;
-  syntax_selection: string;
-  syntax_fold_bg: string;
-  syntax_cursor_line: string;
+  syntaxFg: string;
+  syntaxBg: string;
+  panelBg: string;
+  syntaxAccent: string;
+  syntaxGutter: string;
+  syntaxSelection: string;
+  syntaxFoldBg: string;
+  syntaxCursorLine: string;
 };
 
 const lightColors: Colors = {
-  uno_1: "#2d2006",
-  uno_2: "#896724",
-  uno_3: "#B29762",
-  uno_4: "#B6ad9a",
+  uno1: "#2d2006",
+  uno2: "#896724",
+  uno3: "#B29762",
+  uno4: "#B6ad9a",
 
-  duo_1: "#065289",
-  duo_2: "#718ecd",
-  duo_3: "#aeb3b7",
+  duo1: "#065289",
+  duo2: "#718ecd",
+  duo3: "#aeb3b7",
 
-  syntax_color_renamed: "#33a0ff",
-  syntax_color_added: "#43d08a",
-  syntax_color_modified: "#e0c285",
-  syntax_color_removed: "#e05252",
+  syntaxColorRenamed: "#33a0ff",
+  syntaxColorAdded: "#43d08a",
+  syntaxColorModified: "#e0c285",
+  syntaxColorRemoved: "#e05252",
 
-  syntax_fg: "#896724",
-  syntax_bg: "#FAF8F5",
-  syntax_accent: "#447EBB",
-  syntax_gutter: "#EAE1D2",
-  syntax_selection: "#E5DDCB",
-  syntax_fold_bg: "#d1cec7",
-  syntax_cursor_line: "#F3EFE7",
+  syntaxFg: "#896724",
+  syntaxBg: "#FAF8F5",
+  panelBg: "#F3EFE7",
+  syntaxAccent: "#447EBB",
+  syntaxGutter: "#EAE1D2",
+  syntaxSelection: "#E5DDCB",
+  syntaxFoldBg: "#d1cec7",
+  syntaxCursorLine: "#F3EFE7",
 };
 
 /*
@@ -68,27 +70,28 @@ const lightColors: Colors = {
   let g:terminal_color_15 = "#dcdfe4"
 */
 const darkColors: Colors = {
-  uno_1: "#d6e9ff",
-  uno_2: "#abb2bf",
-  uno_3: "#6e88a6",
-  uno_4: "#55606d",
+  uno1: "#d6e9ff",
+  uno2: "#abb2bf",
+  uno3: "#6e88a6",
+  uno4: "#55606d",
 
-  duo_1: "#c8ae9d",
-  duo_2: "#e06c75",
-  duo_3: "#dd672c",
+  duo1: "#c8ae9d",
+  duo2: "#e06c75",
+  duo3: "#dd672c",
 
-  syntax_color_renamed: "#33a0ff",
-  syntax_color_added: "#43d08a",
-  syntax_color_modified: "#e0c285",
-  syntax_color_removed: "#e05252",
+  syntaxColorRenamed: "#33a0ff",
+  syntaxColorAdded: "#43d08a",
+  syntaxColorModified: "#e0c285",
+  syntaxColorRemoved: "#e05252",
 
-  syntax_fg: "#abb2bf",
-  syntax_bg: "#282c34",
-  syntax_accent: "#56b6c2",
-  syntax_gutter: "#636d83",
-  syntax_selection: "#3e4452",
-  syntax_fold_bg: "#5c6370",
-  syntax_cursor_line: "#2c323c",
+  syntaxFg: "#abb2bf",
+  syntaxBg: "#282c34",
+  panelBg: "#0C1119",
+  syntaxAccent: "#56b6c2",
+  syntaxGutter: "#636d83",
+  syntaxSelection: "#3e4452",
+  syntaxFoldBg: "#5c6370",
+  syntaxCursorLine: "#2c323c",
 };
 
 type Theme = {
@@ -108,58 +111,70 @@ type Theme = {
 };
 
 const makeTheme = (c: Colors): Theme => {
-  const foreground = c.syntax_fg;
+  const foreground = c.syntaxFg;
 
   const theme: Theme = {
     name: "Two Firewatch",
     colors: {
       // Reference doc https://code.visualstudio.com/api/references/theme-color
-      "editor.background": c.syntax_bg,
+      "editor.background": c.syntaxBg,
       "editor.foreground": foreground,
-      "selection.background": c.syntax_selection,
+      "selection.background": c.syntaxSelection,
       "editor.selectionHighlightBorder": `1px solid blue`,
 
-      "activityBarBadge.background": c.syntax_bg,
-      "sideBarTitle.foreground": c.syntax_fg,
-      "sideBar.background": c.syntax_bg,
-      "sideBar.foreground": c.syntax_fg,
-      "sideBar.border": c.uno_4,
-      "sideBarSectionHeader.background": c.syntax_bg,
-      "sideBarSectionHeader.foreground": c.syntax_fg,
-      "editorGroupHeader.tabsBackground": c.syntax_bg,
-      "editorGroupHeader.tabsBorder": c.syntax_bg,
-      "tab.activeBackground": c.syntax_bg,
-      "tab.activeForeground": c.syntax_fg,
-      "tab.inactiveBackground": c.syntax_bg,
-      "tab.inactiveForeground": c.syntax_fg,
-      "tab.border": c.syntax_bg,
-      "editorLineNumber.foreground": c.syntax_gutter,
-      "editorLineNumber.activeForeground": c.syntax_gutter,
-      "editorCursor.foreground": c.syntax_fg,
-      "editor.selectionBackground": c.syntax_selection,
-      "editor.selectionHighlightBackground": c.syntax_selection,
-      "editor.wordHighlightBackground": c.syntax_selection,
-      "editor.wordHighlightStrongBackground": c.syntax_selection,
-      "editor.findMatchBackground": c.syntax_selection,
-      "editor.findMatchHighlightBackground": c.syntax_selection,
-      "editor.lineHighlightBackground": c.syntax_cursor_line,
-      "editorWhitespace.foreground": c.syntax_gutter,
-      "editorIndentGuide.background": c.syntax_gutter,
-      "editorIndentGuide.activeBackground": c.syntax_gutter,
-      "editorRuler.foreground": c.syntax_gutter,
-      "editorCodeLens.foreground": c.syntax_gutter,
-      "editorBracketMatch.background": c.syntax_selection,
-      "gitDecoration.addedResourceForeground": c.syntax_color_added,
-      "gitDecoration.modifiedResourceForeground": c.syntax_color_modified,
-      "gitDecoration.deletedResourceForeground": c.syntax_color_removed,
-      "gitDecoration.untrackedResourceForeground": c.syntax_color_added,
+      "activityBarBadge.background": c.syntaxBg,
+      "sideBarTitle.foreground": c.syntaxFg,
+      "sideBar.background": c.panelBg,
+      "sideBar.foreground": c.syntaxFg,
+      "sideBarSectionHeader.background": c.panelBg,
+      "sideBarSectionHeader.foreground": c.syntaxFg,
+      "sidebar.selectionBackground": c.syntaxSelection,
+      "sidebar.selectionForeground": c.syntaxFg,
+      "editorGroupHeader.tabsBackground": c.panelBg,
+      "editorGroupHeader.tabsBorder": c.syntaxBg,
+      "tab.activeBackground": c.panelBg,
+      "tab.activeForeground": c.syntaxFg,
+      "tab.inactiveBackground": c.panelBg,
+      "tab.inactiveForeground": c.syntaxFg,
+      "tab.border": c.syntaxBg,
+      "editorLineNumber.foreground": c.syntaxGutter,
+      "editorLineNumber.activeForeground": c.syntaxGutter,
+      "editorCursor.foreground": c.syntaxFg,
+      "editor.selectionBackground": c.syntaxSelection,
+      "editor.selectionHighlightBackground": c.syntaxSelection,
+      "editor.wordHighlightBackground": c.syntaxSelection,
+      "editor.wordHighlightStrongBackground": c.syntaxSelection,
+      "editor.findMatchBackground": c.syntaxSelection,
+      "editor.findMatchHighlightBackground": c.syntaxSelection,
+      "editor.lineHighlightBackground": c.syntaxCursorLine,
+      "editorWhitespace.foreground": c.syntaxGutter,
+      "editorIndentGuide.background": c.syntaxGutter,
+      "editorIndentGuide.activeBackground": c.syntaxGutter,
+      "editorRuler.foreground": c.syntaxGutter,
+      "editorCodeLens.foreground": c.syntaxGutter,
+      "editorBracketMatch.background": c.syntaxSelection,
+      "gitDecoration.addedResourceForeground": c.syntaxColorAdded,
+      "gitDecoration.modifiedResourceForeground": c.syntaxColorModified,
+      "gitDecoration.deletedResourceForeground": c.syntaxColorRemoved,
+      "gitDecoration.untrackedResourceForeground": c.syntaxColorAdded,
+      "terminal.foreground": c.syntaxFg,
+      "terminal.background": c.syntaxCursorLine,
+      "panel.background": c.syntaxCursorLine,
+      "panel.border": c.syntaxCursorLine,
+      "panelTitle.activeBorder": c.syntaxAccent,
+      "panelTitle.activeForeground": c.syntaxFg,
+      "panelTitle.inactiveForeground": c.syntaxGutter,
+      "statusBar.background": c.syntaxCursorLine,
+      "statusBar.foreground": c.syntaxFg,
+
+      "terminal.ansiBlack": c.panelBg,
     },
     tokenColors: [
       {
         name: "Punctuation",
         scope: ["punctuation", "expression"],
         settings: {
-          foreground: c.uno_4,
+          foreground: c.uno4,
         },
       },
       {
@@ -167,14 +182,14 @@ const makeTheme = (c: Colors): Theme => {
         scope: ["comment", "punctuation.definition.comment"],
         settings: {
           fontStyle: "italic",
-          foreground: c.uno_4,
+          foreground: c.uno4,
         },
       },
       {
         name: "Variables",
         scope: ["variable", "string constant.other.placeholder"],
         settings: {
-          foreground: c.duo_2,
+          foreground: c.duo2,
         },
       },
       {
@@ -204,7 +219,7 @@ const makeTheme = (c: Colors): Theme => {
           "meta.class.tsx",
         ],
         settings: {
-          foreground: c.uno_4,
+          foreground: c.uno4,
         },
       },
       {
@@ -225,7 +240,7 @@ const makeTheme = (c: Colors): Theme => {
           "keyword.other.substitution",
         ],
         settings: {
-          foreground: c.uno_4,
+          foreground: c.uno4,
         },
       },
       {
@@ -256,14 +271,14 @@ const makeTheme = (c: Colors): Theme => {
         name: "Block Level Variables",
         scope: ["meta.block variable.other"],
         settings: {
-          foreground: c.duo_2,
+          foreground: c.duo2,
         },
       },
       {
         name: "Other Variable, String Link",
         scope: ["support.other.variable", "string.other.link"],
         settings: {
-          foreground: c.duo_2,
+          foreground: c.duo2,
         },
       },
       {
@@ -277,13 +292,6 @@ const makeTheme = (c: Colors): Theme => {
         ],
         settings: {
           foreground,
-        },
-      },
-      {
-        name: "Types",
-        scope: ["entity.name.type.tsx", "meta.type.annotation.tsx"],
-        settings: {
-          foreground: c.duo_3,
         },
       },
       {
@@ -303,7 +311,7 @@ const makeTheme = (c: Colors): Theme => {
           "constant.escape",
         ],
         settings: {
-          foreground: c.duo_1,
+          foreground: c.duo1,
         },
       },
       {
@@ -319,14 +327,14 @@ const makeTheme = (c: Colors): Theme => {
           "support.type.sys-types",
         ],
         settings: {
-          foreground: c.duo_1,
+          foreground: c.duo1,
         },
       },
       {
         name: "Entity Types",
         scope: ["support.type"],
         settings: {
-          foreground: c.duo_1,
+          foreground: c.duo1,
         },
       },
       {
@@ -337,7 +345,7 @@ const makeTheme = (c: Colors): Theme => {
           "variable.other.class.js",
         ],
         settings: {
-          foreground: c.uno_1,
+          foreground: c.uno1,
         },
       },
       {
@@ -345,7 +353,7 @@ const makeTheme = (c: Colors): Theme => {
         scope: ["variable.language"],
         settings: {
           fontStyle: "italic",
-          foreground: c.uno_4,
+          foreground: c.uno4,
         },
       },
       {
@@ -353,7 +361,7 @@ const makeTheme = (c: Colors): Theme => {
         scope: ["entity.name.method.js"],
         settings: {
           fontStyle: "italic",
-          foreground: c.uno_1,
+          foreground: c.uno1,
         },
       },
       {
@@ -363,14 +371,14 @@ const makeTheme = (c: Colors): Theme => {
           "variable.function.constructor",
         ],
         settings: {
-          foreground: c.uno_1,
+          foreground: c.uno1,
         },
       },
       {
         name: "Attributes",
         scope: ["entity.other.attribute-name"],
         settings: {
-          foreground: c.uno_1,
+          foreground: c.uno1,
         },
       },
       {
@@ -381,7 +389,7 @@ const makeTheme = (c: Colors): Theme => {
         ],
         settings: {
           fontStyle: "italic",
-          foreground: c.uno_1,
+          foreground: c.uno1,
         },
       },
       {
@@ -399,7 +407,7 @@ const makeTheme = (c: Colors): Theme => {
         ],
         settings: {
           fontStyle: "italic",
-          foreground: c.duo_1,
+          foreground: c.duo1,
         },
       },
       {
@@ -409,7 +417,7 @@ const makeTheme = (c: Colors): Theme => {
         ],
         settings: {
           fontStyle: "italic",
-          foreground: c.duo_1,
+          foreground: c.duo1,
         },
       },
     ],
@@ -430,7 +438,7 @@ const makeTheme = (c: Colors): Theme => {
         "meta.import.tsx",
       ],
       settings: {
-        foreground: c.uno_3,
+        foreground: c.uno3,
       },
     },
 
@@ -439,7 +447,7 @@ const makeTheme = (c: Colors): Theme => {
       name: "Debugger",
       scope: ["keyword.other.debugger"],
       settings: {
-        foreground: c.syntax_accent,
+        foreground: c.syntaxAccent,
         fontStyle: "bold",
       },
     },
@@ -451,10 +459,10 @@ const makeTheme = (c: Colors): Theme => {
 const themesDir = join(__dirname, "..", "themes");
 // write theme to json file
 writeFileSync(
-  join(themesDir, "Two Firewatch-color-theme-dark.json"),
+  join(themesDir, "two-firewatch-color-theme-dark.json"),
   JSON.stringify(makeTheme(darkColors), null, 2)
 );
 writeFileSync(
-  join(themesDir, "Two Firewatch-color-theme-light.json"),
+  join(themesDir, "two-firewatch-color-theme-light.json"),
   JSON.stringify(makeTheme(lightColors), null, 2)
 );

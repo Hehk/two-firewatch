@@ -14,19 +14,17 @@
       {
         "label": "Two Firewatch",
         "uiTheme": "vs-dark",
-        "path": "./themes/Two Firewatch-color-theme-dark.json"
+        "path": "./themes/two-firewatch-color-theme-dark.json"
       },
       {
         "label": "Two Firewatch",
         "uiTheme": "vs-dark",
-        "path": "./themes/Two Firewatch-color-theme-light.json"
+        "path": "./themes/two-firewatch-color-theme-light.json"
       }
     ]
   },
   "scripts": {
-    "build": "ts-node ./src/build.ts"
-  },
-  "devDependencies": {
-    "ts-node": "^10.9.1"
+    "build": "ts-node ./src/build.ts",
+    "dev": "ts-node ./src/dev.ts"
   }
 }
