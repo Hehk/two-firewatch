@@ -17,8 +17,8 @@
         "path": "./themes/two-firewatch-color-theme-dark.json"
       },
       {
-        "label": "Two Firewatch",
-        "uiTheme": "vs-dark",
+        "label": "Two Firewatch Light",
+        "uiTheme": "vs",
         "path": "./themes/two-firewatch-color-theme-light.json"
       }
     ]

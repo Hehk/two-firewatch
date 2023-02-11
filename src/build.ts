@@ -1,6 +1,31 @@
 import { writeFileSync } from "fs";
 import { join } from "path";
 
+const toRGB = (hex: string) => {
+  const red = parseInt(hex[1] + hex[2], 16);
+  const green = parseInt(hex[3] + hex[4], 16);
+  const blue = parseInt(hex[5] + hex[6], 16);
+  return { red, green, blue };
+};
+
+const opacity = (color: string, bg: string, opacity: number) => {
+  const foreground = toRGB(color);
+  const background = toRGB(bg);
+
+  const red = Math.round(
+    foreground.red * opacity + background.red * (1 - opacity)
+  );
+  const green = Math.round(
+    foreground.green * opacity + background.green * (1 - opacity)
+  );
+  const blue = Math.round(
+    foreground.blue * opacity + background.blue * (1 - opacity)
+  );
+
+  const toHexString = (num: number) => num.toString(16).padStart(2, "0");
+  return "#" + toHexString(red) + toHexString(green) + toHexString(blue);
+};
+
 type Colors = {
   uno1: string;
   uno2: string;
@@ -24,6 +49,28 @@ type Colors = {
   syntaxSelection: string;
   syntaxFoldBg: string;
   syntaxCursorLine: string;
+
+  background1: string;
+  background2: string;
+  background3: string;
+  background4: string;
+
+  terminalColor0: string;
+  terminalColor1: string;
+  terminalColor2: string;
+  terminalColor3: string;
+  terminalColor4: string;
+  terminalColor5: string;
+  terminalColor6: string;
+  terminalColor7: string;
+  terminalColor8: string;
+  terminalColor9: string;
+  terminalColor10: string;
+  terminalColor11: string;
+  terminalColor12: string;
+  terminalColor13: string;
+  terminalColor14: string;
+  terminalColor15: string;
 };
 
 const lightColors: Colors = {
@@ -49,26 +96,30 @@ const lightColors: Colors = {
   syntaxSelection: "#E5DDCB",
   syntaxFoldBg: "#d1cec7",
   syntaxCursorLine: "#F3EFE7",
+
+  background1: "#FAF8F5",
+  background2: opacity("#FAF8F5", "#ffffff", 0.5),
+  background3: opacity("#FAF8F5", "#ffffff", 0.25),
+  background4: opacity("#FAF8F5", "#ffffff", 0.25),
+
+  terminalColor0: "#282c34",
+  terminalColor1: "#e06c75",
+  terminalColor2: "#98c379",
+  terminalColor3: "#e5c07b",
+  terminalColor4: "#61afef",
+  terminalColor5: "#c678dd",
+  terminalColor6: "#56b6c2",
+  terminalColor7: "#dcdfe4",
+  terminalColor8: "#282c34",
+  terminalColor9: "#e06c75",
+  terminalColor10: "#98c379",
+  terminalColor11: "#e5c07b",
+  terminalColor12: "#61afef",
+  terminalColor13: "#c678dd",
+  terminalColor14: "#56b6c2",
+  terminalColor15: "#dcdfe4",
 };
 
-/*
-  *   let g:terminal_color_0 = "#282c34"
-  let g:terminal_color_8 = "#282c34"
-  let g:terminal_color_1 = "#e06c75"
-  let g:terminal_color_9 = "#e06c75"
-  let g:terminal_color_2 = "#98c379"
-  let g:terminal_color_10 = "#98c379"
-  let g:terminal_color_3 = "#e5c07b"
-  let g:terminal_color_11 = "#e5c07b"
-  let g:terminal_color_4 = "#61afef"
-  let g:terminal_color_12 = "#61afef"
-  let g:terminal_color_5 = "#c678dd"
-  let g:terminal_color_13 = "#c678dd"
-  let g:terminal_color_6 = "#56b6c2"
-  let g:terminal_color_14 = "#56b6c2"
-  let g:terminal_color_7 = "#dcdfe4"
-  let g:terminal_color_15 = "#dcdfe4"
-*/
 const darkColors: Colors = {
   uno1: "#d6e9ff",
   uno2: "#abb2bf",
@@ -92,6 +143,28 @@ const darkColors: Colors = {
   syntaxSelection: "#3e4452",
   syntaxFoldBg: "#5c6370",
   syntaxCursorLine: "#2c323c",
+
+  background1: "#282c34",
+  background2: opacity("#282c34", "#000000", 0.75),
+  background3: opacity("#282c34", "#000000", 0.5),
+  background4: opacity("#282c34", "#000000", 0.25),
+
+  terminalColor0: "#282c34",
+  terminalColor1: "#e06c75",
+  terminalColor2: "#98c379",
+  terminalColor3: "#e5c07b",
+  terminalColor4: "#61afef",
+  terminalColor5: "#c678dd",
+  terminalColor6: "#56b6c2",
+  terminalColor7: "#dcdfe4",
+  terminalColor8: "#282c34",
+  terminalColor9: "#e06c75",
+  terminalColor10: "#98c379",
+  terminalColor11: "#e5c07b",
+  terminalColor12: "#61afef",
+  terminalColor13: "#c678dd",
+  terminalColor14: "#56b6c2",
+  terminalColor15: "#dcdfe4",
 };
 
 type Theme = {
@@ -112,6 +185,7 @@ type Theme = {
 
 const makeTheme = (c: Colors): Theme => {
   const foreground = c.syntaxFg;
+  const o = (fg: string, op: number) => opacity(fg, c.syntaxBg, op);
 
   const theme: Theme = {
     name: "Two Firewatch",
@@ -119,22 +193,27 @@ const makeTheme = (c: Colors): Theme => {
       // Reference doc https://code.visualstudio.com/api/references/theme-color
       "editor.background": c.syntaxBg,
       "editor.foreground": foreground,
+      "editorGroup.border": c.background2,
+      "editorGroup.dropBackground": "#ffffff00",
+      "editorGroup.emptyBackground": c.background2,
+      "editor.renderLineHighlight": c.syntaxCursorLine,
+
       "selection.background": c.syntaxSelection,
-      "editor.selectionHighlightBorder": `1px solid blue`,
 
       "activityBarBadge.background": c.syntaxBg,
       "sideBarTitle.foreground": c.syntaxFg,
-      "sideBar.background": c.panelBg,
+      "sideBar.background": c.background3,
       "sideBar.foreground": c.syntaxFg,
-      "sideBarSectionHeader.background": c.panelBg,
+      "sidebar.border": c.background3,
+      "sideBarSectionHeader.background": c.background3,
       "sideBarSectionHeader.foreground": c.syntaxFg,
       "sidebar.selectionBackground": c.syntaxSelection,
       "sidebar.selectionForeground": c.syntaxFg,
-      "editorGroupHeader.tabsBackground": c.panelBg,
+      "editorGroupHeader.tabsBackground": c.background3,
       "editorGroupHeader.tabsBorder": c.syntaxBg,
-      "tab.activeBackground": c.panelBg,
+      "tab.activeBackground": c.background3,
       "tab.activeForeground": c.syntaxFg,
-      "tab.inactiveBackground": c.panelBg,
+      "tab.inactiveBackground": c.background3,
       "tab.inactiveForeground": c.syntaxFg,
       "tab.border": c.syntaxBg,
       "editorLineNumber.foreground": c.syntaxGutter,
@@ -148,26 +227,43 @@ const makeTheme = (c: Colors): Theme => {
       "editor.findMatchHighlightBackground": c.syntaxSelection,
       "editor.lineHighlightBackground": c.syntaxCursorLine,
       "editorWhitespace.foreground": c.syntaxGutter,
-      "editorIndentGuide.background": c.syntaxGutter,
-      "editorIndentGuide.activeBackground": c.syntaxGutter,
+      "editorIndentGuide.background": c.background4,
+      "editorIndentGuide.activeBackground": c.background4,
       "editorRuler.foreground": c.syntaxGutter,
       "editorCodeLens.foreground": c.syntaxGutter,
       "editorBracketMatch.background": c.syntaxSelection,
+
+      // Git
       "gitDecoration.addedResourceForeground": c.syntaxColorAdded,
       "gitDecoration.modifiedResourceForeground": c.syntaxColorModified,
       "gitDecoration.deletedResourceForeground": c.syntaxColorRemoved,
       "gitDecoration.untrackedResourceForeground": c.syntaxColorAdded,
+      "diffEditor.insertedTextBackground": o(c.syntaxColorAdded, 0.1),
+      "diffEditor.removedTextBackground": o(c.syntaxColorRemoved, 0.1),
+
+      // Removing shadow
+      "scollbar.shadow": "#ffffff00",
+      "widget.shadow": "#ffffff00",
+
+      // Panel / Terminal
       "terminal.foreground": c.syntaxFg,
-      "terminal.background": c.syntaxCursorLine,
-      "panel.background": c.syntaxCursorLine,
-      "panel.border": c.syntaxCursorLine,
+      "terminal.background": c.background2,
+      "panel.background": c.background2,
+      "panel.border": c.background2,
       "panelTitle.activeBorder": c.syntaxAccent,
       "panelTitle.activeForeground": c.syntaxFg,
       "panelTitle.inactiveForeground": c.syntaxGutter,
-      "statusBar.background": c.syntaxCursorLine,
+      "statusBar.background": c.background2,
       "statusBar.foreground": c.syntaxFg,
+      "terminal.ansiBlack": c.background2,
 
-      "terminal.ansiBlack": c.panelBg,
+      // Prompt
+      "prompt.background": c.background2,
+      "prompt.foreground": c.syntaxFg,
+      "prompt.border": c.background4,
+      "prompt.inputBackground": c.background1,
+      "prompt.inputForeground": c.syntaxFg,
+      "prompt.inputBorder": c.background4,
     },
     tokenColors: [
       {
