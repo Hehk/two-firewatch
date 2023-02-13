@@ -57,13 +57,28 @@
     "panelTitle.inactiveForeground": "#636d83",
     "statusBar.background": "#1e2127",
     "statusBar.foreground": "#abb2bf",
-    "terminal.ansiBlack": "#1e2127",
     "prompt.background": "#1e2127",
     "prompt.foreground": "#abb2bf",
     "prompt.border": "#0a0b0d",
     "prompt.inputBackground": "#282c34",
     "prompt.inputForeground": "#abb2bf",
-    "prompt.inputBorder": "#0a0b0d"
+    "prompt.inputBorder": "#0a0b0d",
+    "terminal.ansiBlack": "#282c34",
+    "terminal.ansiRed": "#e06c75",
+    "terminal.ansiGreen": "#98c379",
+    "terminal.ansiYellow": "#e5c07b",
+    "terminal.ansiBlue": "#61afef",
+    "terminal.ansiMagenta": "#c678dd",
+    "terminal.ansiCyan": "#56b6c2",
+    "terminal.ansiWhite": "#dcdfe4",
+    "terminal.ansiBrightBlack": "#282c34",
+    "terminal.ansiBrightRed": "#e06c75",
+    "terminal.ansiBrightGreen": "#98c379",
+    "terminal.ansiBrightYellow": "#e5c07b",
+    "terminal.ansiBrightBlue": "#61afef",
+    "terminal.ansiBrightMagenta": "#c678dd",
+    "terminal.ansiBrightCyan": "#56b6c2",
+    "terminal.ansiBrightWhite": "#dcdfe4"
   },
   "tokenColors": [
     {
@@ -345,6 +360,15 @@
       "settings": {
         "fontStyle": "italic",
         "foreground": "#c8ae9d"
+      }
+    },
+    {
+      "name": "Typescript Punctuation",
+      "scope": [
+        "meta.brace.round.ts"
+      ],
+      "settings": {
+        "foreground": "#55606d"
       }
     },
     {

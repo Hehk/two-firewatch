@@ -255,7 +255,6 @@ const makeTheme = (c: Colors): Theme => {
       "panelTitle.inactiveForeground": c.syntaxGutter,
       "statusBar.background": c.background2,
       "statusBar.foreground": c.syntaxFg,
-      "terminal.ansiBlack": c.background2,
 
       // Prompt
       "prompt.background": c.background2,
@@ -264,6 +263,23 @@ const makeTheme = (c: Colors): Theme => {
       "prompt.inputBackground": c.background1,
       "prompt.inputForeground": c.syntaxFg,
       "prompt.inputBorder": c.background4,
+
+      "terminal.ansiBlack": c.terminalColor0,
+      "terminal.ansiRed": c.terminalColor1,
+      "terminal.ansiGreen": c.terminalColor2,
+      "terminal.ansiYellow": c.terminalColor3,
+      "terminal.ansiBlue": c.terminalColor4,
+      "terminal.ansiMagenta": c.terminalColor5,
+      "terminal.ansiCyan": c.terminalColor6,
+      "terminal.ansiWhite": c.terminalColor7,
+      "terminal.ansiBrightBlack": c.terminalColor8,
+      "terminal.ansiBrightRed": c.terminalColor9,
+      "terminal.ansiBrightGreen": c.terminalColor10,
+      "terminal.ansiBrightYellow": c.terminalColor11,
+      "terminal.ansiBrightBlue": c.terminalColor12,
+      "terminal.ansiBrightMagenta": c.terminalColor13,
+      "terminal.ansiBrightCyan": c.terminalColor14,
+      "terminal.ansiBrightWhite": c.terminalColor15,
     },
     tokenColors: [
       {
@@ -521,6 +537,13 @@ const makeTheme = (c: Colors): Theme => {
 
   // Adding typescript specific styling
   theme.tokenColors = theme.tokenColors.concat([
+    {
+      name: "Typescript Punctuation",
+      scope: ["meta.brace.round.ts"],
+      settings: {
+        foreground: c.uno4,
+      },
+    },
     {
       name: "Storage, Type",
       scope: [
