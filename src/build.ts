@@ -538,6 +538,20 @@ const makeTheme = (c: Colors): Theme => {
   // Adding typescript specific styling
   theme.tokenColors = theme.tokenColors.concat([
     {
+      name: "TSX focused",
+      scope: ["meta.jsx.children.tsx", "entity.name.tag.tsx"],
+      settings: {
+        foreground: c.uno1,
+      },
+    },
+    {
+      name: "TSX dimmed",
+      scope: ["entity.other.attribute-name.tsx"],
+      settings: {
+        foreground: c.uno2,
+      },
+    },
+    {
       name: "Typescript Punctuation",
       scope: ["meta.brace.round.ts"],
       settings: {
@@ -568,6 +582,20 @@ const makeTheme = (c: Colors): Theme => {
       settings: {
         foreground: c.syntaxAccent,
         fontStyle: "bold",
+      },
+    },
+    {
+      name: "Variables",
+      scope: [
+        "variable",
+        "variable.parameter.tsx",
+        "variable.object.property.tsx",
+        "variable.other.constant.tsx",
+        "variable.other.object.tsx",
+        "variable.other",
+      ],
+      settings: {
+        foreground: c.duo3,
       },
     },
   ]);
