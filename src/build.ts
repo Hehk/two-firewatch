@@ -595,7 +595,7 @@ const makeTheme = (c: Colors): Theme => {
         "variable.other",
       ],
       settings: {
-        foreground: c.duo3,
+        foreground: c.duo2,
       },
     },
   ]);
