@@ -1,0 +1,15 @@
+{
+  "name": "warp-two-firewatch",
+  "version": "1.0.0",
+  "description": "",
+  "main": "build.ts",
+  "scripts": {
+    "build": "ts-node build.ts"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@types/node": "^18.15.6",
+    "ts-node": "^10.9.1"
+  }
+}
