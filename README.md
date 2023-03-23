@@ -1,11 +1,6 @@
-# two-firewatch
+# two-firewatch -- WIP
 
 Based on https://github.com/rakr/vim-two-firewatch
-
-# Note
-
-- WIP
-- 
 
 ## Running, either vscode or warp
 
